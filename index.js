@@ -1,5 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
+const bodyParser = require("body-parser");
 
 const app = express();
 
@@ -22,6 +23,17 @@ const connectDB = require("./config/db");
 
 // app.use(morgan("tiny"));
 // app.use(express.json({ extended: false }));
+
+app.use(bodyParser.urlencoded({extended: true}));
+
+app.get("/", function(req,res){
+  //console.log(req);
+  res.send("Welcome board!");
+});
+
+app.post("/", function(req,res){
+  //console.log(req.body);
+});
 
 app.listen(5001, () => {
   console.log("Server is running on Port 5001");
