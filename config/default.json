@@ -1,3 +1,3 @@
 {
-    "mongoURI": "mongodb+srv://triArb:67TriArb1996@triarb.oh7cses.mongodb.net/AMSLDB?retryWrites=true&w=majority"
+    "mongoURI": "mongodb+srv://admin:admin@amsldb.uir36rv.mongodb.net/?retryWrites=true&w=majority"
 }
