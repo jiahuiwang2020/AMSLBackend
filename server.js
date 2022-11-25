@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
+const PORT = process.env.PORT || 3000;
+
 //Connect DB
 const connectDB = require("./config/db");
 connectDB();
@@ -31,6 +33,6 @@ app.get("/", (req, res) => {
 // Routes
 app.use("/api/user", require("./routes/user"));
 
-app.listen(5001 || process.env.PORT, () => {
+app.listen(PORT, () => {
   console.log("Server is running on Port 5001");
 });
