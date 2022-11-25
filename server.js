@@ -24,6 +24,11 @@ app.use((req, res, next) => {
 app.use(morgan("tiny"));
 app.use(express.json({ extended: false }));
 
+app.get("/", (req, res) => {
+  res.send("Welcome to the AMSL backend!");
+});
+
+// Routes
 app.use("/api/user", require("./routes/user"));
 
 app.listen(5001, () => {
