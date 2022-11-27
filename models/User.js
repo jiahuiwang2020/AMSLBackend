@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
   email: {
-    type: Date,
+    type: String,
     requried: true,
   },
   degreeProgram: {
