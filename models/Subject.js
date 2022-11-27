@@ -17,7 +17,7 @@ const SubjectSchema = new mongoose.Schema({
     type: Date,
   },
   finished: {
-    type: boolean,
+    type: Boolean,
     default: false,
   },
   location: {
