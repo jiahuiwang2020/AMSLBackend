@@ -1,12 +1,14 @@
 const express = require("express");
 const router = express.Router();
+const { check, validationResult, body } = require("express-validator"); 
+
 const {
   initializeUser,
   retrieveUsers
 } = require("../controller/UserController");
 
 router.get(
-  "/initialize-user/",
+  "/retrieve-user/",
   retrieveUsers
 );
 
