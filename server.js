@@ -32,7 +32,9 @@ app.get("/", (req, res) => {
 
 // Routes
 app.use("/api/user", require("./routes/user"));
+app.use("/api/session", require("./routes/session"));
+
 
 app.listen(PORT, () => {
-  console.log("Server is running on Port 5001");
+  console.log("Server is running on Port " + PORT);
 });
