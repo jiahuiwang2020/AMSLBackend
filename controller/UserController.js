@@ -25,4 +25,15 @@ const initializeUser = async (req, res) => {
   }
 }
 
-module.exports = initializeUser;
+const retrieveUsers = async (req, res) => {
+    try {
+      User.find({})
+        .then(result => res.status(200).json({ result }))
+        .catch(error => res.status(500).json({ msg: error }));
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).send("Server error");
+    }
+  }
+
+module.exports = { initializeUser, retrieveUsers };

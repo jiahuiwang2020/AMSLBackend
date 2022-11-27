@@ -22,9 +22,20 @@ const initializeSession = async (req, res) => {
     await insertSession.save();
     res.json("Initialized session: " + session);
   } catch (error) {
-      console.error(error.message);
-      res.status(500).send("Server error");
+    console.error(error.message);
+    res.status(500).send("Server error");
   }
 }
 
-module.exports = initializeSession;
+const retrieveSessions = async (req, res) => {
+  try {
+    Session.find({})
+      .then(result => res.status(200).json({ result }))
+      .catch(error => res.status(500).json({ msg: error }));
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server error");
+  }
+}
+
+module.exports = { initializeSession, retrieveSessions };
