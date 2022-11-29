@@ -1,5 +1,9 @@
 const User = require("../models/User");
 const { check, validationResult, body } = require("express-validator");
+const jwt = require("jsonwebtoken");
+const ip = require("ip");
+
+const config = require("config");
 
 // Helpers
 const emailValidatorKIT = require("../helpers/validators/emailValidatorKIT");
@@ -23,7 +27,27 @@ const initializeUser = async (req, res) => {
       await user.save();
     }
 
-    res.json({ user });
+    const loginData = {};
+    loginData.ip = ip.address();
+
+    // Return the JWT using jsonwebtoken
+    const payload = {
+      user: {
+        id: user.id,
+        email,
+        ip: loginData.ip,
+      },
+    };
+
+    jwt.sign(
+      payload,
+      config.get("jwtSecret"),
+      { expiresIn: 360000 },
+      (err, token) => {
+        if (err) throw err;
+        return res.json({ token, user, loginData });
+      }
+    );
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Server error");
