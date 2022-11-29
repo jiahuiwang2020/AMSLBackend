@@ -20,7 +20,7 @@ const initializeUser = async (req, res) => {
     let user = await User.findOne({ email });
     if (!user) {
       const user = new User({ email: email });
-      await insertUser.save();
+      await user.save();
     }
 
     res.json({ user });
