@@ -5,6 +5,12 @@ const UserSchema = new mongoose.Schema({
     type: String,
     requried: true,
   },
+  firstName: {
+    type: String,
+  },
+  lastName: {
+    type: String,
+  },
   degreeProgram: {
     type: String,
   },

@@ -1,5 +1,5 @@
-const User = require('../models/User');
-const { check, validationResult, body } = require("express-validator"); 
+const User = require("../models/User");
+const { check, validationResult, body } = require("express-validator");
 
 // Helpers
 const emailValidatorKIT = require("../helpers/validators/emailValidatorKIT");
@@ -16,24 +16,29 @@ const initializeUser = async (req, res) => {
     if (!emailValidatorKIT(email)) {
       return res.status(400).json("Email not a KIT email.");
     }
-    const insertUser = new User({ email: email });
-    await insertUser.save();
-    res.json("Initialized with KIT email: " + email);
+
+    let user = await User.findOne({ email });
+    if (!user) {
+      const user = new User({ email: email });
+      await insertUser.save();
+    }
+
+    res.json({ user });
   } catch (error) {
-      console.error(error.message);
-      res.status(500).send("Server error");
+    console.error(error.message);
+    res.status(500).send("Server error");
   }
-}
+};
 
 const retrieveUsers = async (req, res) => {
-    try {
-      User.find({})
-        .then(result => res.status(200).json({ result }))
-        .catch(error => res.status(500).json({ msg: error }));
-    } catch (error) {
-      console.error(error.message);
-      res.status(500).send("Server error");
-    }
+  try {
+    User.find({})
+      .then((result) => res.status(200).json({ result }))
+      .catch((error) => res.status(500).json({ msg: error }));
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server error");
   }
+};
 
 module.exports = { initializeUser, retrieveUsers };
