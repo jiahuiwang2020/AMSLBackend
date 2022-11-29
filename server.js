@@ -33,6 +33,7 @@ app.get("/", (req, res) => {
 // Routes
 app.use("/api/user", require("./routes/user"));
 app.use("/api/session", require("./routes/session"));
+app.use("/api/subject", require("./routes/subject"));
 
 
 app.listen(PORT, () => {
