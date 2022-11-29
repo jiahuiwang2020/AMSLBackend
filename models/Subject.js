@@ -20,6 +20,14 @@ const SubjectSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  tools: [
+    {
+      tool: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "tool",
+      },
+    },
+  ],
   location: {
     longitude: {
       type: Number,
