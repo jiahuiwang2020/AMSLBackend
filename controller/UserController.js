@@ -65,4 +65,34 @@ const retrieveUsers = async (req, res) => {
   }
 };
 
-module.exports = { initializeUser, retrieveUsers };
+const updateUser = async (req, res) => {
+  const {username,  degreeProgram} = req.body;
+  try {
+    const updatedUser = {
+      username,
+      degreeProgram
+    };
+
+    let existingUser = await User.findOne({ _id: req.user.id });
+
+    if (!existingUser) {
+      return res
+        .status(400)
+        .json({ errors: [{ message: "User not found by id" }] });
+    }
+
+    let user = await User.findOneAndUpdate(
+      { _id: req.user.id },
+      { $set: updatedUser },
+      { new: true }
+    );
+
+    await user.save();
+    res.json(user);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server error");
+  }
+};
+
+module.exports = { initializeUser, retrieveUsers, updateUser };
